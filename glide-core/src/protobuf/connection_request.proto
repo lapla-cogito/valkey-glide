@@ -56,21 +56,22 @@ message PubSubSubscriptions
 message ConnectionRequest {
     repeated NodeAddress addresses = 1;
     TlsMode tls_mode = 2;
-    bool cluster_mode_enabled = 3;
-    uint32 request_timeout = 4;
-    ReadFrom read_from = 5;
-    ConnectionRetryStrategy connection_retry_strategy = 6;
-    AuthenticationInfo authentication_info = 7;
-    uint32 database_id = 8;
-    ProtocolVersion protocol = 9;
-    string client_name = 10;
+    string tls_cert_path = 3;
+    bool cluster_mode_enabled = 4;
+    uint32 request_timeout = 5;
+    ReadFrom read_from = 6;
+    ConnectionRetryStrategy connection_retry_strategy = 7;
+    AuthenticationInfo authentication_info = 8;
+    uint32 database_id = 9;
+    ProtocolVersion protocol = 10;
+    string client_name = 11;
     oneof periodic_checks {
-        PeriodicChecksManualInterval periodic_checks_manual_interval = 11;
-        PeriodicChecksDisabled periodic_checks_disabled = 12;
+        PeriodicChecksManualInterval periodic_checks_manual_interval = 12;
+        PeriodicChecksDisabled periodic_checks_disabled = 13;
     }
-    PubSubSubscriptions pubsub_subscriptions = 13;
-    uint32 inflight_requests_limit = 14;
-    string client_az = 15;
+    PubSubSubscriptions pubsub_subscriptions = 14;
+    uint32 inflight_requests_limit = 15;
+    string client_az = 16;
 }
 
 message ConnectionRetryStrategy {
