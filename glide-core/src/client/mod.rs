@@ -714,6 +714,11 @@ fn sanitized_request_string(request: &ConnectionRequest) -> String {
             )
         })
         .unwrap_or_default();
+    let tls_cert_path = request
+        .tls_cert_path
+        .as_ref()
+        .map(|tls_cert_path| format!("\nTLS certificate path: {tls_cert_path}"))
+        .unwrap_or_default();
     let cluster_mode = if request.cluster_mode_enabled {
         "\nCluster mode"
     } else {
@@ -778,7 +783,7 @@ fn sanitized_request_string(request: &ConnectionRequest) -> String {
     );
 
     format!(
-        "\nAddresses: {addresses}{tls_mode}{cluster_mode}{request_timeout}{connection_timeout}{rfr_strategy}{connection_retry_strategy}{database_id}{protocol}{client_name}{periodic_checks}{pubsub_subscriptions}{inflight_requests_limit}",
+        "\nAddresses: {addresses}{tls_mode}{tls_cert_path}{cluster_mode}{request_timeout}{connection_timeout}{rfr_strategy}{connection_retry_strategy}{database_id}{protocol}{client_name}{periodic_checks}{pubsub_subscriptions}{inflight_requests_limit}",
     )
 }
 

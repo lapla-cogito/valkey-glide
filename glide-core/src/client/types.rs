@@ -17,6 +17,7 @@ pub struct ConnectionRequest {
     pub database_id: i64,
     pub protocol: Option<redis::ProtocolVersion>,
     pub tls_mode: Option<TlsMode>,
+    pub tls_cert_path: Option<String>,
     pub addresses: Vec<NodeAddress>,
     pub cluster_mode_enabled: bool,
     pub request_timeout: Option<u32>,
@@ -137,6 +138,7 @@ impl From<protobuf::ConnectionRequest> for ConnectionRequest {
             protobuf::TlsMode::SecureTls => TlsMode::SecureTls,
             protobuf::TlsMode::InsecureTls => TlsMode::InsecureTls,
         });
+        let tls_cert_path = chars_to_string_option(&value.tls_cert_path);
 
         let addresses = value
             .addresses
@@ -213,6 +215,7 @@ impl From<protobuf::ConnectionRequest> for ConnectionRequest {
             database_id,
             protocol,
             tls_mode,
+            tls_cert_path,
             addresses,
             cluster_mode_enabled,
             request_timeout,
